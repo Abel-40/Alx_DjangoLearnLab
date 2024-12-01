@@ -1,0 +1,1 @@
+In this file, I document the basic CRUD operations performed on the `Book` model using Django's ORM through the Django shell. Each operation includes the corresponding Python command and its expected output, showcasing how to create, retrieve, update, and delete book instances.

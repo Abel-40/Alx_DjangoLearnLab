@@ -1,84 +1,25 @@
-# from django.shortcuts import render
-# from django.views.generic.detail import DetailView
-# from .models import Book
-# from .models import Library
+from django.shortcuts import render
+from django.views.generic.detail import DetailView
+from .models import Book
+from .models import Library
 
-# def list_books(request):
-#  books =Book.objects.all()
-#  return render(request, 'relationship_app/list_books.html', {'book': books})
-# class LibraryDetailView(DetailView):
-#   model = Book
-#   template_name = 'relationship_app/library_detail.html'
-#   def get_context_data(self, **kwargs):
-#     context = super().get_context_data(**kwargs)
-#     library = self.get_object()
-#     context['name'] = library
-#     return context
+def list_books(request):
+ books =Book.objects.all()
+ return render(request, 'relationship_app/list_books.html', {'book': books})
+
+
+class LibraryDetailView(DetailView):
+  model = Book
+  template_name = 'relationship_app/library_detail.html'
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    library = self.get_object()
+    context['name'] = library
+    return context
   
 
 
 
-
-
-
-
-
-
-  
-
-# from django.shortcuts import render
-# from django.http import HttpResponse
-# from django.contrib.auth import login,logout
-# from django.contrib.auth.forms import UserCreationForm
-# def register(request):
-#   form = UserCreationForm()
-#   context = {'form':form}
-#   return render(request , 'relationship_app/register.html',context)
-# def admin_view(request):
-    
-#     if request.user.userprofile.role != 'Admin':
-#         return HttpResponse("You are not authorized to view this page.")
-#     return render(request, 'admin_view.html')
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # views.py
-# from django.shortcuts import render
-# from django.contrib.auth.decorators import user_passes_test
-# from django.http import HttpResponseForbidden
-
-# # Check if the user has the 'Admin' role
-# def is_admin(user):
-#     return user.userprofile.role == 'Admin'
-
-# @user_passes_test(is_admin)
-# def admin_view(request):
-#     return render(request, 'admin_view.html')
-
-# # Check if the user has the 'Librarian' role
-# def is_librarian(user):
-#     return user.userprofile.role == 'Librarian'
-
-# @user_passes_test(is_librarian)
-# def librarian_view(request):
-#     return render(request, 'librarian_view.html')
-# # Check if the user has the 'Member' role
-# def is_member(user):
-#     return user.userprofile.role == 'Member'
-
-# @user_passes_test(is_member)
-# def member_view(request):
-#     return render(request, 'member_view.html')
 
 
 
