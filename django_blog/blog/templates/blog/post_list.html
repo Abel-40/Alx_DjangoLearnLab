@@ -1,0 +1,113 @@
+{%extends 'blog/base.html'%}
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django Blog{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+</head>
+<body class="bg-success-subtle text-success-emphasis d-flex flex-column min-vh-100">
+
+    
+ {% block content %}
+ <style>
+    .post-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        
+
+        .post-card-body {
+            padding: 20px;
+        }
+
+        .post-card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .post-card-title:hover {
+            color:#6E757C;
+        }
+
+        .post-card-text {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .read-more-btn {
+            background-color: #db8c8c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background-color: #a56d6d;
+        }
+
+        /* Grid layout for posts */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        /* Centering content and responsive adjustments */
+        .content {
+            margin-top: 20px;
+        }
+    </style>
+ 
+    <!-- Main Content Section (Posts Grid) -->
+    <div class="content flex-grow-1">
+        <div class="container">
+           <h2>Blog Posts</h2>
+            <!-- Post grid goes here -->
+            <div class="posts-grid">
+                {% for post in posts %}
+                <div class="post-card">
+                    
+                    <div class="post-card-body">
+                        <h5 class="post-card-title">{{ post.title }}</h5>
+                        <p class="post-card-text">{{ post.excerpt }}</p>
+                        <a href="{% url 'post_detail' post.id %}" class="btn btn-secondary">Read More</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <a class="navbar-brand text-white" href="#">&copy; 2024 Django Blog</a>
+    </footer>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

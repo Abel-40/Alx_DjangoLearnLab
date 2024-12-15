@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Create A New Post{% endblock %}
+
+{% block content %}
+  <h2 class="mt-4">{% if form.instance.pk %}Edit Post{% else %}Add Post{% endif %}</h2>
+  <br/>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="container-sm">
+      <div class="form-group">
+        {{ form.as_p }}  <!-- Render form fields as paragraphs -->
+      </div>
+      <button type="submit" class="btn btn-secondary mb-4">
+        {% if form.instance.pk %} Save Changes {% else %} Post {% endif %}
+      </button>
+    </div>
+  </form>
+{% endblock %}

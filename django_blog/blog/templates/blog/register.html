@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Register{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href={%static 'css/register.css'%}>
+</head>
+<body>
+    {% block content %}
+   <form method ="POST" action = "{%url 'register' %}">
+    {%csrf_token%}
+    {{form}}
+    <button type="submit" class="btn btn-secondary mt-5">Register</button>
+  </form>
+    {% endblock %}
+</body>
+</html>

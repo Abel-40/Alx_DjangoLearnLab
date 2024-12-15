@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% block title %} Updating...{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  <h2>Update Post </h2>
+  <br/>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="container-sm">
+    <div class="form-group">
+    {{ form.as_p }} 
+    {% comment %} as_p is like adding css so that every content have it's own line  {% endcomment %}
+    </div>
+    <button type="submit"  class="btn btn-secondary">{% if form.instance.pk %}Save Changes{% else %} Post{% endif %}</button>
+  </form>
+  </div>
+  </div>
+  {% else %}
+  You are not allowed here!!
+  
+{% endblock %}

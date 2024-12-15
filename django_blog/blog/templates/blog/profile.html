@@ -1,0 +1,36 @@
+`{% extends 'blog/base.html' %}
+
+{% block content %}
+<style>
+    .navbar {
+        position: relative; /* Ensures navbar stays in its normal position */
+    }
+</style>
+
+  <h1 class="mt-3 text-success">{{ profile.user.username }}'s Profile</h1>
+  
+  <div class="profile-info">
+    <p><strong>Username:</strong> {{ profile.user.username }}</p>
+    {% comment %} <p><strong>Email:</strong> {{ profile.user.email }}</p>
+     {% endcomment %}
+    {% comment %} {% if profile.avatar %}
+      <img src="{{ profile.avatar.url }}" alt="Avatar" width="150" />
+    {% else %}
+      <p>No avatar set.</p>
+    {% endif %} {% endcomment %}
+
+    <p><strong>Bio:</strong> {{ profile.bio }}</p>
+    <p><strong>Posts:</strong> </p>
+    
+      {% if profile.posts.count > 0 %}
+      <ul>
+        {% for post in profile.posts.all %}
+          <li><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No posts available. <a href = {% url 'post_create'%}> Create  </a></p>
+    {% endif %}
+   
+  </div>
+{% endblock %}

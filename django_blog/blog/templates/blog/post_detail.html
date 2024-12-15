@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    {{ post.tags }}
+{% endblock %}
+
+{% block content %}
+  <div class="text-center">
+    <h2 class="mt-5 text-success">{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <small>Written by {{ post.author.username }} on {{ post.created_at }}</small>
+
+    {% if user.is_authenticated %}
+      {% if user == post.author %}
+        <!-- Show Edit and Delete links only for post authors -->
+        <a href="{% url 'post_update' post.pk %}">(Edit)</a>
+        <a href="{% url 'post_delete' post.pk %}">(Delete)</a>
+      {% endif %}
+    {% endif %}
+    
+    <hr>
+  </div>
+
+  <p>Tags: 
+    {% for tag in post.tags.all %}
+      <a href="{% url 'tag_posts' tag.name %}">{{ tag.name }}</a>
+      {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+  </p>
+
+  <h3 class="text-success">Comments</h3>
+  {% for comment in comments %}
+    <div class="comment">
+      <p><strong>{{ comment.author.username }}</strong> said: {{ comment.content }}</p>
+      <p><small>Posted on {{ comment.created_at }}</small></p>
+    </div>
+  {% empty %}
+    <p>No comments yet. Be the first to comment!</p>
+  {% endfor %}
+
+  <h3 class="text-success">Add a Comment</h3>
+  <form method="POST" action="{% url 'post_detail' post.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Render the form fields -->
+    <button type="submit" class="btn btn-secondary">Post Comment</button>
+    
+  </form>
+  <button class="btn btn-secondary text-white">
+      <a href="{% url 'post_list' %}" style="color: white; text-decoration: none; margin-top:5px;">Back</a>
+    </button>
+  <br>
+{% endblock %}
