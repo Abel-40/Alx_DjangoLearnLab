@@ -10,14 +10,18 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['bio']
 
-class PostForm(forms.ModelForm):
-    tags = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    title = forms.CharField(widget=widgets.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}))
-    author = forms.ModelChoiceField(queryset=User.objects.all(),widget=widgets.Select(attrs={'class': 'form-select', 'placeholder': 'author'}))
 
-    
-    content = forms.CharField(widget=widgets.Textarea(attrs={'class': 'form-control','placeholder': 'Content'}))
-    tags = forms.CharField(widget=widgets.TextInput(attrs={'class': 'form-control'}))
+
+class PostForm(forms.ModelForm):
+    title = forms.CharField(widget=widgets.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}))
+    author = forms.ModelChoiceField(queryset=User.objects.all(), widget=widgets.Select(attrs={'class': 'form-select', 'placeholder': 'Author'}))
+    content = forms.CharField(widget=widgets.Textarea(attrs={'class': 'form-control', 'placeholder': 'Content'}))
+    tags = forms.CharField(widget=TagWidget(attrs={'class': 'form-control'}))  # Use TagWidget here
+
+    class Meta:
+        model = Post
+        fields = ['title', 'author', 'content', 'tags']
+
 
     
 
